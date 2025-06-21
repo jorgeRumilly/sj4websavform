@@ -1,15 +1,83 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xliff version="1.2">
-  <file source-language="en" datatype="plaintext" original="file.ext">
-    <body>
-      <trans-unit id="sav_form_title">
-        <source>Support Request Form</source>
-        <target>Support Request Form</target>
-      </trans-unit>
-      <trans-unit id="sav_form_placeholder">
-        <source>This is the SAV form placeholder. The real form will be implemented soon.</source>
-        <target>This is the SAV form placeholder. The real form will be implemented soon.</target>
-      </trans-unit>
-    </body>
-  </file>
+<?xml version='1.0' encoding='utf-8'?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+    <file source-language="en-US" target-language="en-US" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="sav_form_title">
+                <source>Support Request Form</source>
+                <target>Support Request Form</target>
+            </trans-unit>
+            <trans-unit id="sav_form_placeholder">
+                <source>This is the SAV form placeholder. The real form will be implemented soon.</source>
+                <target>This is the SAV form placeholder. The real form will be implemented soon.</target>
+            </trans-unit>
+            <trans-unit id="First name">
+                <source>First name</source>
+                <target>First name</target>
+            </trans-unit>
+            <trans-unit id="Last name">
+                <source>Last name</source>
+                <target>Last name</target>
+            </trans-unit>
+            <trans-unit id="Email address">
+                <source>Email address</source>
+                <target>Email address</target>
+            </trans-unit>
+            <trans-unit id="Phone number">
+                <source>Phone number</source>
+                <target>Phone number</target>
+            </trans-unit>
+            <trans-unit id="Intervention address">
+                <source>Intervention address</source>
+                <target>Intervention address</target>
+            </trans-unit>
+            <trans-unit id="Associated order">
+                <source>Associated order</source>
+                <target>Associated order</target>
+            </trans-unit>
+            <trans-unit id="Choose an order (optional)">
+                <source>Choose an order (optional)</source>
+                <target>Choose an order (optional)</target>
+            </trans-unit>
+            <trans-unit id="Order reference (if available)">
+                <source>Order reference (if available)</source>
+                <target>Order reference (if available)</target>
+            </trans-unit>
+            <trans-unit id="Concerned products">
+                <source>Concerned products</source>
+                <target>Concerned products</target>
+            </trans-unit>
+            <trans-unit id="Other product type (if not listed)" resname="Other product type (if not listed)">
+                <source>Other product type (if not listed)</source>
+                <target>Other product type (if not listed)</target>
+            </trans-unit>
+            <trans-unit id="Nature of the request" resname="Nature of the request">
+                <source>Nature of the request</source>
+                <target>Nature of the request</target>
+            </trans-unit>
+            <trans-unit id="Preferred delay" resname="Preferred delay">
+                <source>Preferred delay</source>
+                <target>Preferred delay</target>
+            </trans-unit>
+            <trans-unit id="Please specify" resname="Please specify">
+                <source>Please specify</source>
+                <target>Please specify</target>
+            </trans-unit>
+            <trans-unit id="Subject">
+                <source>Subject</source>
+                <target>Subject</target>
+            </trans-unit>
+            <trans-unit id="Message">
+                <source>Message</source>
+                <target>Message</target>
+            </trans-unit>
+            <trans-unit id="Attach up to 5 images">
+                <source>Attach up to 5 images</source>
+                <target>Attach up to 5 images</target>
+            </trans-unit>
+            <trans-unit id="Send request">
+                <source>Send request</source>
+                <target>Send request</target>
+            </trans-unit>
+        </body>
+    </file>
 </xliff>

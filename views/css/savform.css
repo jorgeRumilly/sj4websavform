@@ -1,0 +1,90 @@
+/* Formulaire SAV - Styles dédiés */
+
+.sav-form {
+    max-width: 800px;
+    margin: 0 auto 50px auto;
+    padding: 30px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+}
+
+.sav-form h1 {
+    font-size: 24px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.sav-form .form-group {
+    margin-bottom: 20px;
+}
+
+.sav-form label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.sav-form input[type="text"],
+.sav-form input[type="email"],
+.sav-form input[type="file"],
+.sav-form textarea,
+.sav-form select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.sav-form textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.sav-form button[type="submit"] {
+    display: inline-block;
+    margin-top: 15px;
+}
+
+/* Grille pour les types de produits */
+.product-type-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.product-type-item {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 6px 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+}
+
+.product-type-item input[type="checkbox"] {
+    margin: 0;
+}
+
+.product-type-label {
+    font-size: 14px;
+}
+.radio-inline-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-around;
+}
+
+.radio-inline-group .form-check {
+    display: flex;
+    align-items: center;
+}
+.radio-inline-group .form-check label {
+    margin-bottom: 0;
+}
+.radio-inline-group .form-check .form-check-input{
+    margin-top: 0;
+}
