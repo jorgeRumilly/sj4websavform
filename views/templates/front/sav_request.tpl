@@ -44,11 +44,11 @@
     {* --- Commande associée --- *}
     {if $is_logged}
         <div class="form-group">
-            <label for="order_reference">{l s='Associated order' d='Modules.Sj4websavform.Shop'}</label>
-            <select name="order_reference" class="form-control">
+            <label for="id_order">{l s='Associated order' d='Modules.Sj4websavform.Shop'}</label>
+            <select name="id_order" class="form-control">
                 <option value="">{l s='Choose an order (optional)' d='Modules.Sj4websavform.Shop'}</option>
                 {foreach from=$customer_orders item=order}
-                    <option value="{$order.reference|escape:'htmlall':'UTF-8'}">{$order.reference} - {$order.date_add|date_format:"%d/%m/%Y"}</option>
+                    <option value="{$order.id_order|escape:'htmlall':'UTF-8'}">{$order.reference} - {$order.date_add|date_format:"%d/%m/%Y"}</option>
                 {/foreach}
             </select>
         </div>
@@ -127,7 +127,7 @@
 
     {* --- Anti-bot honeypot (champ caché) --- *}
     <div style="display:none;">
-        <input type="text" name="website" value="">
+        <input type="text" name="url" value="">
     </div>
 
     <div class="form-group">

@@ -48,6 +48,7 @@ class Sj4websavform extends Module
             `lastname` VARCHAR(128),
             `phone` VARCHAR(64),
             `intervention_address` TEXT,
+            `id_order` INT UNSIGNED DEFAULT 0,
             `order_reference` VARCHAR(64),
             `product_types` TEXT DEFAULT NULL COMMENT "JSON list of selected product types",
             `nature` VARCHAR(64) DEFAULT NULL,
@@ -56,6 +57,7 @@ class Sj4websavform extends Module
             `subject` VARCHAR(255),
             `message` TEXT,
             `attachments` TEXT,
+            `sent` TINYINT(1) NOT NULL DEFAULT 0 COMMENT "0 = not sent, 1 = sent",
             `date_add` DATETIME NOT NULL,
             PRIMARY KEY (`id_savform_request`)
         ) ENGINE='._MYSQL_ENGINE_.' DEFAULT CHARSET=utf8mb4;

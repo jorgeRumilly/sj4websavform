@@ -1,0 +1,25 @@
+Nouvelle demande SAV reçue sur votre boutique :
+
+Nom : {firstname} {lastname}
+Email : {email}
+Téléphone : {phone}
+
+Adresse d’intervention :
+{intervention_address}
+
+Commande associée : {order_reference}
+Type(s) de produit : {product_types}
+Nature de la demande : {nature}
+Délai souhaité : {delai}
+
+Objet : {subject}
+
+Message :
+{message}
+
+Fichiers joints :
+{attached_files}
+
+--------------------
+{shop_name}
+{shop_url}

@@ -1,0 +1,25 @@
+New support request received from your store:
+
+Name: {firstname} {lastname}
+Email: {email}
+Phone: {phone}
+
+Intervention address:
+{intervention_address}
+
+Order reference: {order_reference}
+Product type(s): {product_types}
+Request type: {nature}
+Preferred delay: {delai}
+
+Subject: {subject}
+
+Message:
+{message}
+
+Attached files:
+{attached_files}
+
+--------------------
+{shop_name}
+{shop_url}
