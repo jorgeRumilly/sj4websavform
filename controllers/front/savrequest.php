@@ -296,10 +296,11 @@ class Sj4websavformSavrequestModuleFrontController extends ModuleFrontController
                 '{email}' => $form['email'],
                 '{phone}' => $form['phone'],
                 '{intervention_address}' => $form['intervention_address'],
-                '{order_reference}' => $form['order_reference'],
+                '{order_reference}' => ((isset($order) && $order->reference) ? $order->reference : $form['order_reference']),
                 '{product_types}' => implode(', ', $form['product_types']),
                 '{subject}' => $form['subject'],
                 '{nature}' => $form['nature'] === 'autre' ? $form['nature_other'] : $form['nature'],
+                '{delai}' => $form['delai'],
                 '{message}' => Tools::nl2br(Tools::htmlentitiesUTF8($form['message'])),
             ];
 
@@ -320,7 +321,6 @@ class Sj4websavformSavrequestModuleFrontController extends ModuleFrontController
             $to = 'jorge.sj4web@gmail.com';
 
             try {
-
                 $sentMail = Mail::Send(
                     (int)$this->context->language->id,
                     'sav_request', // template .tpl à créer dans /mails/
