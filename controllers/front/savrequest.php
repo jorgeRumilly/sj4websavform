@@ -8,6 +8,10 @@ class Sj4websavformSavrequestModuleFrontController extends ModuleFrontController
     {
         parent::initContent();
 
+        if (!Configuration::get('SJ4WEBSAVFORM_ACTIVE')) {
+            Tools::redirect($this->context->link->getPageLink('index'));
+        }
+
         $token = Tools::passwdGen(16);
         $this->context->cookie->savFormToken = $token;
         $this->context->cookie->savFormTokenTTL = time() + 3600; // 1h de validité
@@ -252,6 +256,12 @@ class Sj4websavformSavrequestModuleFrontController extends ModuleFrontController
 
         }
 
+        $idContact = (int) Configuration::get('SJ4WEBSAVFORM_CONTACT_ID');
+        if (!$idContact) {
+            $idContact = 1;
+        }
+        $contact = new Contact($idContact);
+
         $id_customer_thread = CustomerThread::getIdCustomerThreadByEmailAndIdOrder($from, $id_order);
 
         if ($id_customer_thread) {
@@ -259,7 +269,7 @@ class Sj4websavformSavrequestModuleFrontController extends ModuleFrontController
             $ct->status = 'open';
             $ct->id_lang = (int)$this->context->language->id;
             $ct->id_order = $id_order;
-            $ct->id_contact = 1;
+            $ct->id_contact = $contact->id;
             $ct->update();
         } else {
             $ct = new CustomerThread();
@@ -271,7 +281,7 @@ class Sj4websavformSavrequestModuleFrontController extends ModuleFrontController
             $ct->id_lang = (int)$this->context->language->id;
             $ct->email = $from;
             $ct->status = 'open';
-            $ct->id_contact = 1;
+            $ct->id_contact = $contact->id;
             $ct->token = Tools::passwdGen(12);
             $ct->add();
         }
@@ -316,9 +326,22 @@ class Sj4websavformSavrequestModuleFrontController extends ModuleFrontController
                 }
             }
 
-            $to = Configuration::get('SJ4WEBSAVFORM_EMAIL');
+            $to = $contact->email;
             $to = !empty($to) ? $to : Configuration::get('PS_SHOP_EMAIL'); // Fallback si pas de config
-            $to = 'jorge.sj4web@gmail.com';
+
+            $ccEmailsRaw = Configuration::get('SJ4WEBSAVFORM_CC_EMAILS');
+            $ccEmails = [];
+
+            if (!empty($ccEmailsRaw)) {
+                // découper sur virgules OU retours à la ligne
+                $ccLines = preg_split('/[\r\n,]+/', $ccEmailsRaw);
+                foreach ($ccLines as $email) {
+                    $email = trim($email);
+                    if (Validate::isEmail($email)) {
+                        $ccEmails[] = $email;
+                    }
+                }
+            }
 
             try {
                 $sentMail = Mail::Send(
@@ -335,7 +358,7 @@ class Sj4websavformSavrequestModuleFrontController extends ModuleFrontController
                     _PS_MODULE_DIR_ . 'sj4websavform/mails/',
                     false,
                     (int)Context::getContext()->shop->id,
-                    null,
+                    $ccEmails, // CC email,
                     $from
                 );
                 if (!$sentMail) {
