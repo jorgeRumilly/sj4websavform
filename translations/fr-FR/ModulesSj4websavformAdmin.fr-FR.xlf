@@ -18,6 +18,42 @@
         <source>This is the SAV form placeholder. The real form will be implemented soon.</source>
         <target>Ceci est un espace réservé pour le futur formulaire SAV.</target>
       </trans-unit>
+      <trans-unit id="sav_requests">
+        <source>SAV Requests</source>
+        <target>Demandes de SAV</target>
+      </trans-unit>
+      <trans-unit id="enable_sav_requests">
+        <source>Enable SAV form</source>
+        <target>Activer le formulaire SAV</target>
+      </trans-unit>
+      <trans-unit id="default_contact_sav_form">
+        <source>Default contact for SAV emails</source>
+        <target>Contact par défaut pour les e-mails du SAV</target>
+      </trans-unit>
+      <trans-unit id="cc_email_addresses">
+        <source>CC email addresses (one per line)</source>
+        <target>Adresses e-mail en copie (une par ligne)</target>
+      </trans-unit>
+      <trans-unit id="enter_email_addresses">
+        <source>Enter one email per line or separated by commas.</source>
+        <target>Saisissez une adresse e-mail par ligne ou séparées par des virgules.</target>
+      </trans-unit>
+      <trans-unit id="sj4webformsav_settings_updated">
+        <source>Settings updated.</source>
+        <target>Paramètres mis à jour.</target>
+      </trans-unit>
+      <trans-unit id="sj4webformsav_yes">
+        <source>Yes</source>
+        <target>Oui</target>
+      </trans-unit>
+      <trans-unit id="sj4webformsav_no">
+        <source>No</source>
+        <target>Non</target>
+      </trans-unit>
+      <trans-unit id="sj4webformsav_save">
+        <source>Save</source>
+        <target>Enregistrer</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

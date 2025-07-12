@@ -2,6 +2,7 @@
 
 class Sj4websavform extends Module
 {
+    protected $tabname = '';
     public function __construct()
     {
         $this->name = 'sj4websavform';
@@ -11,14 +12,11 @@ class Sj4websavform extends Module
         $this->need_instance = 0;
         $this->is_configurable = true;
         $this->bootstrap = true;
-
         parent::__construct();
-
         $this->displayName = $this->trans('SJ4WEB - SAV Request Form', [], 'Modules.Sj4websavform.Admin');
         $this->description = $this->trans('Allows customers to submit support (SAV) requests with file uploads.', [], 'Modules.Sj4websavform.Admin');;
-
+        $this->tabname = $this->trans('SAV Requests', [], 'Modules.Sj4websavform.Admin');
         $this->ps_versions_compliancy = ['min' => '1.7.8.5', 'max' => _PS_VERSION_];
-
 //        $this->installAdminTab();
     }
 
@@ -68,6 +66,7 @@ class Sj4websavform extends Module
             `message` TEXT,
             `attachments` TEXT,
             `sent` TINYINT(1) NOT NULL DEFAULT 0 COMMENT "0 = not sent, 1 = sent",
+            `processed` TINYINT(1) NOT NULL DEFAULT 0 COMMENT "0 = not processed, 1 = processed",
             `date_add` DATETIME NOT NULL,
             PRIMARY KEY (`id_savform_request`)
         ) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8mb4;
@@ -148,32 +147,20 @@ class Sj4websavform extends Module
      */
     protected function installAdminTab()
     {
-        $parentTab = new Tab();
-        $parentTab->active = 1;
-        $parentTab->class_name = 'AdminSj4webSavformParent';
-        $parentTab->name = [];
 
-        foreach (Language::getLanguages(false) as $lang) {
-            $parentTab->name[$lang['id_lang']] = 'AdminParentCustomerThreads';
+        $id_tab = (int)Tab::getIdFromClassName('AdminSj4webSavformRequests');
+        if (!$id_tab) {
+            $tab = new Tab();
+            $tab->class_name = 'AdminSj4webSavformRequests';
+            $tab->module = $this->name;
+            $tab->active = 1;
+            $tab->id_parent = (int)Tab::getIdFromClassName('AdminParentCustomerThreads'); // Parent tab ID
+            $tab->name = [];
+            foreach (Language::getLanguages(false) as $lang) {
+                $tab->name[$lang['id_lang']] = $this->tabname;
+            }
+            $tab->add();
         }
-
-        $parentTab->id_parent = 0; // 0 = racine
-        $parentTab->module = $this->name;
-        $parentTab->add();
-
-        $tab = new Tab();
-        $tab->active = 1;
-        $tab->class_name = 'AdminSj4webSavformRequests';
-        $tab->name = [];
-
-        foreach (Language::getLanguages(false) as $lang) {
-            $tab->name[$lang['id_lang']] = 'SAV Requests';
-        }
-
-        $tab->id_parent = (int)$parentTab->id;
-        $tab->module = $this->name;
-        $tab->add();
-
         return true;
     }
 
@@ -190,13 +177,6 @@ class Sj4websavform extends Module
             $tab = new Tab($id_tab);
             $tab->delete();
         }
-
-        $id_parent = (int)Tab::getIdFromClassName('AdminSj4webSavformParent');
-        if ($id_parent) {
-            $tab = new Tab($id_parent);
-            $tab->delete();
-        }
-
         return true;
     }
 

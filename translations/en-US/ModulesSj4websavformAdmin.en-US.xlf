@@ -11,12 +11,48 @@
         <target>Allows customers to submit support (SAV) requests with file uploads.</target>
       </trans-unit>
       <trans-unit id="sav_form_title">
-        <source>Support Request Form</source>
-        <target>Support Request Form</target>
+        <source>Support Request form</source>
+        <target>Support Request form</target>
       </trans-unit>
       <trans-unit id="sav_form_placeholder">
         <source>This is the SAV form placeholder. The real form will be implemented soon.</source>
         <target>This is the SAV form placeholder. The real form will be implemented soon.</target>
+      </trans-unit>
+      <trans-unit id="sav_requests">
+        <source>SAV Requests</source>
+        <target>SAV Requests</target>
+      </trans-unit>
+      <trans-unit id="enable_sav_requests">
+        <source>Enable SAV Form</source>
+        <target>Enable SAV Form</target>
+      </trans-unit>
+      <trans-unit id="default_contact_sav_form">
+        <source>Default contact for SAV emails</source>
+        <target>Default contact for SAV emails</target>
+      </trans-unit>
+      <trans-unit id="cc_email_addresses">
+        <source>CC email addresses (one per line)</source>
+        <target>CC email addresses (one per line)</target>
+      </trans-unit>
+      <trans-unit id="enter_email_addresses">
+        <source>Enter one email per line or separated by commas.</source>
+        <target>Enter one email per line or separated by commas.</target>
+      </trans-unit>
+      <trans-unit id="sj4webformsav_settings_updated">
+        <source>Settings updated.</source>
+        <target>Settings updated.</target>
+      </trans-unit>
+      <trans-unit id="sj4webformsav_yes">
+        <source>Yes</source>
+        <target>Yes</target>
+      </trans-unit>
+      <trans-unit id="sj4webformsav_no">
+        <source>No</source>
+        <target>No</target>
+      </trans-unit>
+      <trans-unit id="sj4webformsav_save">
+        <source>Save</source>
+        <target>Save</target>
       </trans-unit>
     </body>
   </file>
