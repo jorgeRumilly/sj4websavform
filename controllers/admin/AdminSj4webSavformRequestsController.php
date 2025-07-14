@@ -110,7 +110,9 @@ class AdminSj4webSavformRequestsController extends ModuleAdminController
         $fieldLabels = $this->getFieldLabelsMapping();
 
         $displayData = [];
-
+        $order_link = '';
+        $order_ref = '';
+        $order_id = 0;
         foreach ($data as $field => $value) {
             if ($field === 'product_types' && $value) {
                 $decoded = json_decode($value, true);
@@ -118,16 +120,37 @@ class AdminSj4webSavformRequestsController extends ModuleAdminController
                     $value = implode(', ', $decoded);
                 }
             }
+            if($field == 'id_order' && $value){
+                $order  = new Order((int)$value);
+                if (Validate::isLoadedObject($order)) {
+                    $order_id = $order->id;
+                    $order_link =  Link::getAdminLink('AdminOrders', true, ['id_order' => (int)$order_id, 'vieworder' => '']);
+                    $order_ref = $order->order_ref;
+                }
+            }
             $displayData[$field] = [
                 'field' => $field,
-                'label' => isset($fieldLabels[$field]) ? $fieldLabels[$field] : $field,
+                'label' => $fieldLabels[$field] ?? $field,
                 'value' => $value,
             ];
         }
 
+        $id = (int)Tools::getValue('id_savform_request');
+
+        $backUrl = self::$currentIndex.'&token='.$this->token;
+
+        $processUrl = self::$currentIndex
+            . '&process' . $this->table
+            . '&' . $this->identifier . '=' . $id
+            . '&token=' . $this->token;
 
         $this->context->smarty->assign([
             'displayData' => $displayData,
+            'order_link' => $order_link,
+            'order_ref' => $order_ref,
+            'order_id' => $order_id ?? 0,
+            'back_url' => $backUrl,
+            'process_url' => $processUrl,
             'module_dir' => $this->module->getPathUri(),
         ]);
 

@@ -29,23 +29,72 @@
 
 {block name="content"}
 <div class="row">
+    <!-- Left Column -->
     <div class="col-lg-6">
         <div class="panel">
             <div class="panel-heading">
                 <p>{l s='Customer Information' d='Modules.Sj4websavform.Admin'}</p>
             </div>
             <div class="panel-body">
-                <p>
-                    <strong>{l s='Name' d='Modules.Sj4websavform.Admin'}</strong> {$displayData.firstname.value} {$displayData.lastname.value}
-                </p>
+                {if $displayData.id_customer.value > 0}
+                    <p><strong>{$displayData.id_customer.label}</strong> <a href="{$link->getAdminLink('AdminCustomers', true, [], ['id_customer' => $displayData.id_customer.value|intval, 'viewcustomer' => 1])|escape:'html':'UTF-8'}" target="_blank">{$displayData.id_customer.value}</a></p>
+                {/if}
+                <p><strong>{l s='Name' d='Modules.Sj4websavform.Admin'}</strong> {$displayData.firstname.value} {$displayData.lastname.value}</p>
                 <p><strong>{$displayData.email.label}</strong> {$displayData.email.value}</p>
                 <p><strong>{$displayData.phone.label}</strong> {$displayData.phone.value}</p>
-                <p>
-                    <strong>{$displayData.intervention_address.label}</strong> {$displayData.intervention_address.value}
-                </p>
+                <p><strong>{$displayData.intervention_address.label}</strong> {$displayData.intervention_address.value}</p>
             </div>
         </div>
+        <div class="panel">
+            <div class="panel-heading">
+                <p>{l s='Request Information' d='Modules.Sj4websavform.Admin'}</p>
+            </div>
+            <div class="panel-body">
+                <p>
+                    <strong>{$displayData.id_order.label}</strong>
+                    {if $order_id > 0}
+                        <a href="{$order_link}" target="_blank">{$order_id}</a>
+                    {else}
+                        N/A
+                    {/if}
+                </p>
+                <p>
+                    <strong>{$displayData.order_reference.label}</strong>
+                    {if $order_ref != ''}
+                        {$order_ref}
+                    {elseif $displayData.order_reference.value != ''}
+                        {$displayData.order_reference.value}
+                    {else}
+                        N/A
+                    {/if}
+                </p>
+                <p><strong>{$displayData.product_types.label}</strong> {if $displayData.product_types.value != ''}{$displayData.product_types.value}{else}N/A{/if}</p>
+                <p><strong>{$displayData.nature.label}</strong> {if $displayData.nature.value != ''}{$displayData.nature.value}{else}N/A{/if}</p>
+                <p><strong>{$displayData.nature_other.label}</strong> {if $displayData.nature_other.value != ''}{$displayData.nature_other.value}{else}N/A{/if}</p>
+                <p><strong>{$displayData.delai.label}</strong> {if $displayData.delai.value != ''}{$displayData.delai.value}{else}N/A{/if}</p>
+            </div>
+        </div>
+        <div class="panel">
+            <div class="panel-heading">
+                <p>{l s='Technical Information' d='Modules.Sj4websavform.Admin'}</p>
+            </div>
+            <div class="panel-body">
+                <p><strong>{$displayData.sent.label}</strong> {if $displayData.sent.value == 1}<span style="color:green;font-size:large;">✔</span>{else}<span style="color:red;font-size:large;">✖</span>{/if}</p>
+                <p><strong>{$displayData.processed.label}</strong> {if $displayData.processed.value == 1}<span style="color:green;font-size:large;">✔</span>{else}<span style="color:red;font-size:large;">✖</span>{/if}</p>
+                <p><strong>{$displayData.date_add.label}</strong> {if $displayData.date_add.value != ''}{$displayData.date_add.value|date_format:"%d/%m/%Y %H:%M:%S"}{/if}</p>
+            </div>
+            <div class="panel-footer text-right">
+                <a href="{$back_url}" class="btn btn-default">
+                    <i class="fas fa-arrow-left"></i> {l s='Back to Requests' d='Modules.Sj4websavform.Admin'}
+                </a>
+                <a href="{$process_url}" class="btn btn-success">
+                    <i class="fas fa-check"></i> {l s='Process Request' d='Modules.Sj4websavform.Admin'}
+                </a>
+            </div>
+        </div>
+
     </div>
+    <!-- Right Column -->
     <div class="col-lg-6">
         <div class="panel">
             <div class="panel-heading">
@@ -59,32 +108,6 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-lg-6">
-        <div class="panel">
-            <div class="panel-heading">
-                <p>{l s='Request Information' d='Modules.Sj4websavform.Admin'}</p>
-            </div>
-            <div class="panel-body">
-                <p>
-                    <strong>{$displayData.id_order.label}</strong>
-                    {if $displayData.id_order.value > 0}
-                        <a href="{$link->getAdminLink('AdminOrders', true, [], ['id_order' => $displayData.id_order.value])}">{$displayData.id_order.value}</a>
-                    {else}
-                        N/A
-                    {/if}
-                </p>
-                <p><strong>{$displayData.order_reference.label}</strong> {if $displayData.order_reference.value != ''}{$displayData.order_reference.value}{else}N/A{/if}</p>
-                <p><strong>{$displayData.product_types.label}</strong> {if $displayData.product_types.value != ''}{$displayData.product_types.value}{else}N/A{/if}</p>
-                <p><strong>{$displayData.nature.label}</strong> {if $displayData.nature.value != ''}{$displayData.nature.value}{else}N/A{/if}</p>
-                <p><strong>{$displayData.nature_other.label}</strong> {if $displayData.nature_other.value != ''}{$displayData.nature_other.value}{else}N/A{/if}</p>
-                <p><strong>{$displayData.delai.label}</strong> {if $displayData.delai.value != ''}{$displayData.delai.value}{else}N/A{/if}</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-6">
         <div class="panel">
             <div class="panel-heading">
                 <p>{$displayData.attachments.label}</p>
@@ -109,51 +132,4 @@
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-lg-12">
-        <div class="panel mt-4">
-            <div class="panel-heading">
-                <p>{l s='Request Details' d='Modules.Sj4websavform.Admin'}</p>
-            </div>
-            <div class="panel-body">
-                <table class="table">
-                    {foreach from=$displayData item=row}
-                        {if $row.field == 'attachments'}
-                            <tr>
-                                <th>{$row.label}</th>
-                                <td>
-                                    {if $row.value|@json_decode}
-                                        <div class="row">
-                                            {foreach $row.value|@json_decode as $file}
-                                                <div class="col-md-3 text-center">
-                                                    <a href="{$module_dir}uploads/{$file}" target="_blank">
-                                                        <img src="{$module_dir}uploads/{$file}" class="img-thumbnail"
-                                                             style="max-width:100px;">
-                                                    </a>
-                                                    <p><a href="{$module_dir}uploads/{$file}" download>{$file}</a></p>
-                                                </div>
-                                            {/foreach}
-                                        </div>
-                                    {else}
-                                        {l s='No attachments' mod='sj4websavform'}
-                                    {/if}
-                                </td>
-                            </tr>
-                        {elseif $row.field == 'message'}
-                            {* skip message for later in card *}
-                        {elseif $row.field == 'subject'}
-                            {* skip subject for later in card *}
-                        {elseif $row.field == 'firstname' || $row.field == 'lastname' || $row.field == 'email' || $row.field == 'phone' || $row.field == 'intervention_address'}
-                            {* skip customer info for card *}
-                        {else}
-                            <tr>
-                                <th>{$row.label}</th>
-                                <td>{$row.value}</td>
-                            </tr>
-                        {/if}
-                    {/foreach}
-                </table>
-            </div>
-        </div>
-    </div>
-    {/block}
+{/block}

@@ -54,6 +54,38 @@
         <source>Save</source>
         <target>Save</target>
       </trans-unit>
+      <trans-unit id="sj4webformsav_resquest_id">
+        <source>Request ID</source>
+        <target>Request ID</target>
+      </trans-unit>
+      <trans-unit id="sj4webformsav_customer_id">
+        <source>Customer ID</source>
+        <target>Customer ID</target>
+      </trans-unit>
+      <trans-unit id="sj4webformsav_email">
+        <source>Email</source>
+        <target>Email</target>
+      </trans-unit>
+      <trans-unit id="sj4webformsav_firstname">
+        <source>Firstname</source>
+        <target>Firstname</target>
+      </trans-unit>
+      <trans-unit id="sj4webformsav_lastname">
+        <source>Lastname</source>
+        <target>Lastname</target>
+      </trans-unit>
+      <trans-unit id="sj4webformsav_phone">
+        <source>Phone</source>
+        <target>Phone</target>
+      </trans-unit>
+      <trans-unit id="sj4webformsav_intervention_address">
+        <source>Intervention Address</source>
+        <target>Intervention Address</target>
+      </trans-unit>
+      <trans-unit id="sj4webformsav_order_id">
+        <source>Order id</source>
+        <target>Order id</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
