@@ -22,6 +22,10 @@
         <source>SAV Requests</source>
         <target>SAV Requests</target>
       </trans-unit>
+      <trans-unit id="SAV Form Settings">
+        <source>SAV Form Settings</source>
+        <target>SAV Form Settings</target>
+      </trans-unit>
       <trans-unit id="enable_sav_requests">
         <source>Enable SAV Form</source>
         <target>Enable SAV Form</target>
@@ -85,6 +89,134 @@
       <trans-unit id="sj4webformsav_order_id">
         <source>Order id</source>
         <target>Order id</target>
+      </trans-unit>
+      <trans-unit id="Customer Information">
+        <source>Customer Information</source>
+        <target>Customer Information</target>
+      </trans-unit>
+      <trans-unit id="Name">
+        <source>Name</source>
+        <target>Name</target>
+      </trans-unit>
+      <trans-unit id="Request Information">
+        <source>Request Information</source>
+        <target>Request Information</target>
+      </trans-unit>
+      <trans-unit id="Technical Information">
+        <source>Technical Information</source>
+        <target>Technical Information</target>
+      </trans-unit>
+      <trans-unit id="Back to Requests">
+        <source>Back to Requests</source>
+        <target>Back to Requests</target>
+      </trans-unit>
+      <trans-unit id="Process Request">
+        <source>Process Request</source>
+        <target>Process Request</target>
+      </trans-unit>
+      <trans-unit id="Client Message">
+        <source>Client Message</source>
+        <target>Client Message</target>
+      </trans-unit>
+      <trans-unit id="No attachments">
+        <source>No attachments</source>
+        <target>No attachments</target>
+      </trans-unit>
+      <trans-unit id="Request ID">
+        <source>Request ID</source>
+        <target>Request ID</target>
+      </trans-unit>
+      <trans-unit id="Customer ID">
+        <source>Customer ID</source>
+        <target>Customer ID</target>
+      </trans-unit>
+      <trans-unit id="Email">
+        <source>Email</source>
+        <target>Email</target>
+      </trans-unit>
+      <trans-unit id="Firstname">
+        <source>Firstname</source>
+        <target>Firstname</target>
+      </trans-unit>
+      <trans-unit id="Lastname">
+        <source>Lastname</source>
+        <target>Lastname</target>
+      </trans-unit>
+      <trans-unit id="Phone">
+        <source>Phone</source>
+        <target>Phone</target>
+      </trans-unit>
+      <trans-unit id="Intervention Address">
+        <source>Intervention Address</source>
+        <target>Intervention Address</target>
+      </trans-unit>
+      <trans-unit id="Order ID">
+        <source>Order ID</source>
+        <target>Order ID</target>
+      </trans-unit>
+      <trans-unit id="Order reference">
+        <source>Order reference</source>
+        <target>Order reference</target>
+      </trans-unit>
+      <trans-unit id="Product types">
+        <source>Product types</source>
+        <target>Product types</target>
+      </trans-unit>
+      <trans-unit id="Nature">
+        <source>Nature</source>
+        <target>Nature</target>
+      </trans-unit>
+      <trans-unit id="Nature (other)">
+        <source>Nature (other)</source>
+        <target>Nature (other)</target>
+      </trans-unit>
+      <trans-unit id="Delay">
+        <source>Delay</source>
+        <target>Delay</target>
+      </trans-unit>
+      <trans-unit id="Subject">
+        <source>Subject</source>
+        <target>Subject</target>
+      </trans-unit>
+      <trans-unit id="Message">
+        <source>Message</source>
+        <target>Message</target>
+      </trans-unit>
+      <trans-unit id="Attachments">
+        <source>Attachments</source>
+        <target>Attachments</target>
+      </trans-unit>
+      <trans-unit id="Mail sent">
+        <source>Mail sent</source>
+        <target>Mail sent</target>
+      </trans-unit>
+      <trans-unit id="Processed">
+        <source>Processed</source>
+        <target>Processed</target>
+      </trans-unit>
+      <trans-unit id="Date added">
+        <source>Date added</source>
+        <target>Date added</target>
+      </trans-unit>
+      <trans-unit id="Sav requests list">
+        <source>Sav requests list</source>
+        <target>Sav requests list</target>
+      </trans-unit>
+      <trans-unit id="Mark as processed">
+        <source>Mark as processed</source>
+        <target>Mark as processed</target>
+      </trans-unit>
+      <trans-unit id="ID">
+        <source>ID</source>
+        <target>ID</target>
+      </trans-unit>
+      <trans-unit id="Date">
+        <source>Date</source>
+        <target>Date</target>
+      </trans-unit>
+      <trans-unit id="Service After Sales Requests">
+        <source>Service After Sales Requests</source>
+        <target>Service After Sales Requests</target>
       </trans-unit>
     </body>
   </file>

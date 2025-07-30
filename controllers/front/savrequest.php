@@ -347,7 +347,7 @@ class Sj4websavformSavrequestModuleFrontController extends ModuleFrontController
                 $sentMail = Mail::Send(
                     (int)$this->context->language->id,
                     'sav_request', // template .tpl à créer dans /mails/
-                    $this->trans('New SAV request', [], 'Emails.Subject'),
+                    $this->trans('New SAV request', [], 'Modules.Sj4websavform.Shop'),
                     $var_list,
                     $to, // à configurer ou fallback
                     null,

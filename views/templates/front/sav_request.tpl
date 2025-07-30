@@ -11,7 +11,7 @@
 {/if}
 
 
-<form method="post" action="{$form_action}" enctype="multipart/form-data" class="sav-form">
+<form method="post" action="{$form_action}" enctype="multipart/form-data" class="sav-form" id="savForm">
     <input type="hidden" name="token" value="{$token}">
 
     {* --- Bloc identité client --- *}
@@ -122,7 +122,7 @@
     {* --- Upload fichiers --- *}
     <div class="form-group">
         <label>{l s='Attach up to 5 images' d='Modules.Sj4websavform.Shop'}</label>
-        <input type="file" name="attachments[]" accept="image/*" multiple>
+        <input type="file" name="attachments[]" accept="image/*" multiple required id="fileUpload">
     </div>
 
     {* --- Anti-bot honeypot (champ caché) --- *}

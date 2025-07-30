@@ -14,9 +14,17 @@
         <source>Support Request Form</source>
         <target>Formulaire de demande SAV</target>
       </trans-unit>
+      <trans-unit id="Enable SAV form">
+        <source>Enable SAV form</source>
+        <target>Activer le formulaire SAV</target>
+      </trans-unit>
       <trans-unit id="sav_form_placeholder">
         <source>This is the SAV form placeholder. The real form will be implemented soon.</source>
         <target>Ceci est un espace réservé pour le futur formulaire SAV.</target>
+      </trans-unit>
+      <trans-unit id="SAV Form Settings">
+        <source>SAV Form Settings</source>
+        <target>Paramètres du formulaire SAV</target>
       </trans-unit>
       <trans-unit id="sav_requests">
         <source>SAV Requests</source>
@@ -53,6 +61,134 @@
       <trans-unit id="sj4webformsav_save">
         <source>Save</source>
         <target>Enregistrer</target>
+      </trans-unit>
+      <trans-unit id="Customer Information">
+        <source>Customer Information</source>
+        <target>Informations client</target>
+      </trans-unit>
+      <trans-unit id="Name">
+        <source>Name</source>
+        <target>Nom</target>
+      </trans-unit>
+      <trans-unit id="Request Information">
+        <source>Request Information</source>
+        <target>Informations sur la demande</target>
+      </trans-unit>
+      <trans-unit id="Technical Information">
+        <source>Technical Information</source>
+        <target>Informations techniques</target>
+      </trans-unit>
+      <trans-unit id="Back to Requests">
+        <source>Back to Requests</source>
+        <target>Retour aux demandes</target>
+      </trans-unit>
+      <trans-unit id="Process Request">
+        <source>Process Request</source>
+        <target>Traiter la demande</target>
+      </trans-unit>
+      <trans-unit id="Client Message">
+        <source>Client Message</source>
+        <target>Message du client</target>
+      </trans-unit>
+      <trans-unit id="No attachments">
+        <source>No attachments</source>
+        <target>Aucune pièce jointe</target>
+      </trans-unit>
+      <trans-unit id="Request ID">
+        <source>Request ID</source>
+        <target>ID de la demande</target>
+      </trans-unit>
+      <trans-unit id="Customer ID">
+        <source>Customer ID</source>
+        <target>ID client</target>
+      </trans-unit>
+      <trans-unit id="Email">
+        <source>Email</source>
+        <target>Email</target>
+      </trans-unit>
+      <trans-unit id="Firstname">
+        <source>Firstname</source>
+        <target>Prénom</target>
+      </trans-unit>
+      <trans-unit id="Lastname">
+        <source>Lastname</source>
+        <target>Nom</target>
+      </trans-unit>
+      <trans-unit id="Phone">
+        <source>Phone</source>
+        <target>Téléphone</target>
+      </trans-unit>
+      <trans-unit id="Intervention Address">
+        <source>Intervention Address</source>
+        <target>Adresse d’intervention</target>
+      </trans-unit>
+      <trans-unit id="Order ID">
+        <source>Order ID</source>
+        <target>ID de commande</target>
+      </trans-unit>
+      <trans-unit id="Order reference">
+        <source>Order reference</source>
+        <target>Référence de commande</target>
+      </trans-unit>
+      <trans-unit id="Product types">
+        <source>Product types</source>
+        <target>Types de produit</target>
+      </trans-unit>
+      <trans-unit id="Nature">
+        <source>Nature</source>
+        <target>Nature</target>
+      </trans-unit>
+      <trans-unit id="Nature (other)">
+        <source>Nature (other)</source>
+        <target>Nature (autre)</target>
+      </trans-unit>
+      <trans-unit id="Delay">
+        <source>Delay</source>
+        <target>Délai</target>
+      </trans-unit>
+      <trans-unit id="Subject">
+        <source>Subject</source>
+        <target>Objet</target>
+      </trans-unit>
+      <trans-unit id="Message">
+        <source>Message</source>
+        <target>Message</target>
+      </trans-unit>
+      <trans-unit id="Attachments">
+        <source>Attachments</source>
+        <target>Pièces jointes</target>
+      </trans-unit>
+      <trans-unit id="Mail sent">
+        <source>Mail sent</source>
+        <target>Mail envoyé</target>
+      </trans-unit>
+      <trans-unit id="Processed">
+        <source>Processed</source>
+        <target>Traitée</target>
+      </trans-unit>
+      <trans-unit id="Date added">
+        <source>Date added</source>
+        <target>Date d’ajout</target>
+      </trans-unit>
+      <trans-unit id="Sav requests list">
+        <source>Sav requests list</source>
+        <target>Liste des demandes SAV</target>
+      </trans-unit>
+      <trans-unit id="Mark as processed">
+        <source>Mark as processed</source>
+        <target>Marquer comme traitée</target>
+      </trans-unit>
+      <trans-unit id="ID">
+        <source>ID</source>
+        <target>ID</target>
+      </trans-unit>
+      <trans-unit id="Date">
+        <source>Date</source>
+        <target>Date</target>
+      </trans-unit>
+      <trans-unit id="Service After Sales Requests">
+        <source>Service After Sales Requests</source>
+        <target>Demandes de service après-vente</target>
       </trans-unit>
     </body>
   </file>

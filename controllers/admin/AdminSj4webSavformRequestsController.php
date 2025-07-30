@@ -29,6 +29,7 @@ class AdminSj4webSavformRequestsController extends ModuleAdminController
 
         $this->meta_title = $this->trans('Service After Sales Requests', [], 'Modules.Sj4websavform.Admin');
 
+
         $fields_list = [
             'id_savform_request' => [
                 'title' => $this->trans('ID', [], 'Modules.Sj4websavform.Admin'),
@@ -65,11 +66,12 @@ class AdminSj4webSavformRequestsController extends ModuleAdminController
             ],
         ];
 
-        $this->_select = '';
-        $this->_join = '';
+//        $this->_select = '';
+//        $this->_join = '';
+
+//        $this->getList($this->context->language->id, null, null);
 
         $this->actions = ['view', 'delete', 'markProcessed'];
-
         $helper = new HelperList();
         $helper->module = $this->module;
         $helper->shopLinkType = '';
@@ -82,7 +84,8 @@ class AdminSj4webSavformRequestsController extends ModuleAdminController
         $helper->currentIndex = self::$currentIndex;
         $helper->actions = $this->actions;
         $helper->show_toolbar = true;
-        $helper->tpl_vars['pagination'] = [20, 50, 100, 300];
+        $helper->_default_pagination = 10;
+        $helper->tpl_vars['pagination'] = [10, 20, 50, 100, 300];
         $helper->tpl_vars['show_toolbar'] = true;
         $helper->tpl_vars['show_pagination'] = true;
         $helper->tpl_vars['fields_list'] = $fields_list;
@@ -170,7 +173,7 @@ class AdminSj4webSavformRequestsController extends ModuleAdminController
     {
         $token = $token ?: $this->token;
         $href = self::$currentIndex . '&process' . $this->table . '&' . $this->identifier . '=' . $id . '&token=' . $token;
-        return '<a href="' . $href . '" class="btn btn-default"><i class="icon-check"></i> ' . $this->l('Mark as processed') . '</a>';
+        return '<a href="' . $href . '" class="btn btn-default"><i class="icon-check"></i> ' . $this->trans('Mark as processed', [], 'Modules.Sj4websavform.Admin') . '</a>';
     }
 
     public function postProcess()
