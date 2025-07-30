@@ -7,7 +7,6 @@ class AdminSj4webSavformRequestsController extends ModuleAdminController
         $this->module = Module::getInstanceByName('sj4websavform');
         $this->bootstrap = true;
         $this->table = 'sj4web_savform_request';
-//        $this->className = 'Sj4webSavformRequests'; // pour plus tard si on crée un objet modèle
         $this->lang = false;
         $this->explicitSelect = true;
         $this->display = 'list';

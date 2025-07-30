@@ -12,6 +12,12 @@ class Sj4websavformSavrequestModuleFrontController extends ModuleFrontController
             Tools::redirect($this->context->link->getPageLink('index'));
         }
 
+
+        if (Tools::getValue('inject') === '1') {
+            $this->injectFakeSavRequests();
+            exit;
+        }
+
         $token = Tools::passwdGen(16);
         $this->context->cookie->savFormToken = $token;
         $this->context->cookie->savFormTokenTTL = time() + 3600; // 1h de validité
@@ -420,6 +426,68 @@ class Sj4websavformSavrequestModuleFrontController extends ModuleFrontController
         $this->context->cookie->savFormToken = $token;
         $this->context->cookie->savFormTokenTTL = time() + 3600;
     }
+
+    public function injectFakeSavRequests(): void
+    {
+        $jsonPath = _PS_MODULE_DIR_ . 'sj4websavform/data/psans_sj4web_savform_request.json';
+        if (!file_exists($jsonPath)) {
+            echo 'Fichier JSON non trouvé.';
+            return;
+        }
+
+        $data = json_decode(file_get_contents($jsonPath), true);
+        if (!is_array($data)) {
+            echo 'Contenu JSON invalide.';
+            return;
+        }
+
+        // Répéter les données existantes pour avoir au moins 25 entrées
+        $entries = [];
+        while (count($entries) < 25) {
+            foreach ($data as $row) {
+                $entries[] = $row;
+                if (count($entries) >= 25) {
+                    break;
+                }
+            }
+        }
+
+        $inserted = 0;
+        foreach ($entries as $row) {
+            // Nettoyage et préparation des champs
+            $form = [
+                'firstname' => $row['firstname'] ?? '',
+                'lastname' => $row['lastname'] ?? '',
+                'email' => $row['email'] ?? '',
+                'phone' => $row['phone'] ?? '',
+                'intervention_address' => $row['intervention_address'] ?? '',
+                'id_order' => (int)($row['id_order'] ?? 0),
+                'order_reference' => $row['order_reference'] ?? '',
+                'product_types' => json_decode($row['product_types'], true) ?? [],
+                'subject' => $row['subject'] ?? '',
+                'message' => $row['message'] ?? '',
+                'nature' => $row['nature'] ?? '',
+                'nature_other' => $row['nature_other'] ?? '',
+                'delai' => $row['delai'] ?? '',
+            ];
+            $attachments = json_decode($row['attachments'], true) ?? [];
+
+            // Mock du customer context si absent
+            $this->context->customer = new Customer((int)$row['id_customer']);
+            if (!Validate::isLoadedObject($this->context->customer)) {
+                $this->context->customer = new Customer(); // id=0
+                $this->context->customer->id = 0;
+            }
+
+            $id = $this->insertionEnBase($form, $attachments);
+            if ($id) {
+                $inserted++;
+            }
+        }
+
+        echo $inserted . ' demandes SAV injectées avec succès.';
+    }
+
 
 
 }
