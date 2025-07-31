@@ -1,7 +1,7 @@
 {extends file='page.tpl'}
 {block name='page_content'}
 
-<h1>{l s='Support Request Form' d='Modules.Sj4websavform.Shop'}</h1>
+<h1 class="savform_title">{l s='Support Request Form' d='Modules.Sj4websavform.Shop'}</h1>
 
 
 {if isset($confirmation) && $confirmation}

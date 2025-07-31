@@ -9,9 +9,10 @@
     border-radius: 6px;
 }
 
-.sav-form h1 {
+h1.savform_title {
     font-size: 24px;
     margin-bottom: 30px;
+    padding-top: 20px;
     text-align: center;
 }
 

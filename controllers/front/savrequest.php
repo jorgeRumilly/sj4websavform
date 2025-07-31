@@ -322,8 +322,11 @@ class Sj4websavformSavrequestModuleFrontController extends ModuleFrontController
             }
         }
         if (empty($mailAlreadySend)) {
+            // Si l'adresse d'intervention est vide, on utilise le zip_code et la ville
             $info_address = (isset($form['intervention_address']) && !empty($form['intervention_address']))
                 ? $form['intervention_address'] : $form['zip_code'] . ' ' . $form['city'];
+            // On construira la référence de commande à partir de l'objet Order si disponible
+            $order_reference = (isset($order) && $order->order_ref) ? $order->order_ref : ((isset($order) && $order->reference) ? $order->reference : $form['order_reference']);
             // Construction du mail
             $var_list = [
                 '{firstname}' => $form['firstname'],
@@ -331,7 +334,7 @@ class Sj4websavformSavrequestModuleFrontController extends ModuleFrontController
                 '{email}' => $form['email'],
                 '{phone}' => $form['phone'],
                 '{intervention_address}' => $info_address,
-                '{order_reference}' => ((isset($order) && $order->reference) ? $order->reference : $form['order_reference']),
+                '{order_reference}' => $order_reference,
                 '{product_types}' => implode(', ', $form['product_types']),
                 '{subject}' => $form['subject'],
                 '{nature}' => $form['nature'] === 'autre' ? $form['nature_other'] : $form['nature'],
@@ -416,7 +419,7 @@ class Sj4websavformSavrequestModuleFrontController extends ModuleFrontController
         if($id_order > 0) {
             $order = new Order($id_order);
             if(Validate::isLoadedObject($order)) {
-                $order_ref = $order->order_ref;
+                $order_ref = ($order->order_ref) ?: $order->reference;
             }
         }
 
