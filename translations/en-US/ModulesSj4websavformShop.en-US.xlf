@@ -30,6 +30,14 @@
                 <source>Intervention address</source>
                 <target>Intervention address</target>
             </trans-unit>
+            <trans-unit id="Zip Code">
+                <source>Zip Code</source>
+                <target>Zip Code</target>
+            </trans-unit>
+            <trans-unit id="City">
+                <source>City</source>
+                <target>City</target>
+            </trans-unit>
             <trans-unit id="Associated order">
                 <source>Associated order</source>
                 <target>Associated order</target>
@@ -142,6 +150,95 @@
                 <source>Your request has been sent successfully. Our team will get back to you shortly.</source>
                 <target>Your request has been sent successfully. Our team will get back to you shortly.</target>
             </trans-unit>
+            <trans-unit id="Garage doors">
+                <source>Garage doors</source>
+                <target>Garage doors</target>
+            </trans-unit>
+            <trans-unit id="Windows">
+                <source>Windows</source>
+                <target>Windows</target>
+            </trans-unit>
+            <trans-unit id="French windows">
+                <source>French windows</source>
+                <target>French windows</target>
+            </trans-unit>
+            <trans-unit id="Shutters">
+                <source>Shutters</source>
+                <target>Shutters</target>
+            </trans-unit>
+            <trans-unit id="Front doors">
+                <source>Front doors</source>
+                <target>Front doors</target>
+            </trans-unit>
+            <trans-unit id="Bioclimatic pergolas">
+                <source>Bioclimatic pergolas</source>
+                <target>Bioclimatic pergolas</target>
+            </trans-unit>
+            <trans-unit id="Veranda - Flat roof">
+                <source>Veranda - Flat roof</source>
+                <target>Veranda - Flat roof</target>
+            </trans-unit>
+            <trans-unit id="Carport">
+                <source>Carport</source>
+                <target>Carport</target>
+            </trans-unit>
+            <trans-unit id="Railings">
+                <source>Railings</source>
+                <target>Railings</target>
+            </trans-unit>
+            <trans-unit id="Gates / Wickets">
+                <source>Gates / Wickets</source>
+                <target>Gates / Wickets</target>
+            </trans-unit>
+            <trans-unit id="Awning blinds">
+                <source>Awning blinds</source>
+                <target>Awning blinds</target>
+            </trans-unit>
+            <trans-unit id="Privacy screens">
+                <source>Privacy screens</source>
+                <target>Privacy screens</target>
+            </trans-unit>
+            <trans-unit id="Glazing">
+                <source>Glazing</source>
+                <target>Glazing</target>
+            </trans-unit>
+            <trans-unit id="Accessories">
+                <source>Accessories</source>
+                <target>Accessories</target>
+            </trans-unit>
+            <trans-unit id="Adjustment">
+                <source>Adjustment</source>
+                <target>Adjustment</target>
+            </trans-unit>
+            <trans-unit id="Motor failure">
+                <source>Motor failure</source>
+                <target>Motor failure</target>
+            </trans-unit>
+            <trans-unit id="Broken glazing">
+                <source>Broken glazing</source>
+                <target>Broken glazing</target>
+            </trans-unit>
+            <trans-unit id="Sealing defect">
+                <source>Sealing defect</source>
+                <target>Sealing defect</target>
+            </trans-unit>
+            <trans-unit id="Other">
+                <source>Other</source>
+                <target>Other</target>
+            </trans-unit>
+            <trans-unit id="Priority">
+                <source>Priority</source>
+                <target>Priority</target>
+            </trans-unit>
+            <trans-unit id="Standard">
+                <source>Standard</source>
+                <target>Standard</target>
+            </trans-unit>
+            <trans-unit id="Non-priority">
+                <source>Non-priority</source>
+                <target>Non-priority</target>
+            </trans-unit>
+
         </body>
     </file>
 </xliff>

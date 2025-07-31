@@ -42,7 +42,7 @@
                 <p><strong>{l s='Name' d='Modules.Sj4websavform.Admin'}</strong> {$displayData.firstname.value} {$displayData.lastname.value}</p>
                 <p><strong>{$displayData.email.label}</strong> {$displayData.email.value}</p>
                 <p><strong>{$displayData.phone.label}</strong> {$displayData.phone.value}</p>
-                <p><strong>{$displayData.intervention_address.label}</strong> {$displayData.intervention_address.value}</p>
+                <p><strong>{$displayData.intervention_address.label}</strong> {if $displayData.intervention_address.value !== ''}{$displayData.intervention_address.value}{else}{$displayData.zip_code.value} {$displayData.city.value}{/if}</p>
             </div>
         </div>
         <div class="panel">

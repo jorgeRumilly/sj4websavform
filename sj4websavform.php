@@ -17,7 +17,6 @@ class Sj4websavform extends Module
         $this->description = $this->trans('Allows customers to submit support (SAV) requests with file uploads.', [], 'Modules.Sj4websavform.Admin');;
         $this->tabname = $this->trans('SAV Requests', [], 'Modules.Sj4websavform.Admin');
         $this->ps_versions_compliancy = ['min' => '1.7.8.5', 'max' => _PS_VERSION_];
-//        $this->installAdminTab();
     }
 
     public function install()
@@ -26,6 +25,9 @@ class Sj4websavform extends Module
             && Configuration::updateValue('SJ4WEBSAVFORM_ACTIVE', 0)
             && Configuration::updateValue('SJ4WEBSAVFORM_CONTACT_ID', 0)
             && Configuration::updateValue('SJ4WEBSAVFORM_CC_EMAILS', '')
+            && Configuration::updateValue('SJ4WEBSAVFORM_ADDRESS_ACTIVE', 1)
+            && Configuration::updateValue('SJ4WEBSAVFORM_DISPLAY_NATURE', 1)
+            && Configuration::updateValue('SJ4WEBSAVFORM_DISPLAY_PRIORITY', 1)
             && $this->installDatabase()
             && $this->installMeta()
             && $this->setControllerLayouts()
@@ -40,6 +42,9 @@ class Sj4websavform extends Module
             && Configuration::deleteByName('SJ4WEBSAVFORM_ACTIVE')
             && Configuration::deleteByName('SJ4WEBSAVFORM_CONTACT_ID')
             && Configuration::deleteByName('SJ4WEBSAVFORM_CC_EMAILS')
+            && Configuration::deleteByName('SJ4WEBSAVFORM_ADDRESS_ACTIVE')
+            && Configuration::deleteByName('SJ4WEBSAVFORM_DISPLAY_NATURE')
+            && Configuration::deleteByName('SJ4WEBSAVFORM_DISPLAY_PRIORITY')
             && $this->uninstallMeta()
             && $this->uninstallDatabase()
             && $this->uninstallAdminTab();
@@ -56,6 +61,8 @@ class Sj4websavform extends Module
             `lastname` VARCHAR(128),
             `phone` VARCHAR(64),
             `intervention_address` TEXT,
+            `zip_code` VARCHAR(30),
+            `city` VARCHAR(255),
             `id_order` INT UNSIGNED DEFAULT 0,
             `order_reference` VARCHAR(64),
             `product_types` TEXT DEFAULT NULL COMMENT "JSON list of selected product types",
@@ -227,6 +234,9 @@ class Sj4websavform extends Module
             Configuration::updateValue('SJ4WEBSAVFORM_ACTIVE', (int)Tools::getValue('SJ4WEBSAVFORM_ACTIVE'));
             Configuration::updateValue('SJ4WEBSAVFORM_CONTACT_ID', (int)Tools::getValue('SJ4WEBSAVFORM_CONTACT_ID'));
             Configuration::updateValue('SJ4WEBSAVFORM_CC_EMAILS', Tools::getValue('SJ4WEBSAVFORM_CC_EMAILS'));
+            Configuration::updateValue('SJ4WEBSAVFORM_ADDRESS_ACTIVE', Tools::getValue('SJ4WEBSAVFORM_ADDRESS_ACTIVE'));
+            Configuration::updateValue('SJ4WEBSAVFORM_DISPLAY_PRIORITY', Tools::getValue('SJ4WEBSAVFORM_DISPLAY_PRIORITY'));
+            Configuration::updateValue('SJ4WEBSAVFORM_DISPLAY_NATURE', Tools::getValue('SJ4WEBSAVFORM_DISPLAY_NATURE'));
 
             $output .= $this->displayConfirmation($this->trans('Settings updated.', [], 'Modules.Sj4websavform.Admin'));
         }
@@ -283,6 +293,63 @@ class Sj4websavform extends Module
                         'cols' => 40,
                         'desc' => $this->trans('Enter one email per line or separated by commas.', [], 'Modules.Sj4websavform.Admin'),
                     ],
+                    [
+                        'type' => 'switch',
+                        'label' => $this->trans('Enable intervention address', [], 'Modules.Sj4websavform.Admin'),
+                        'name' => 'SJ4WEBSAVFORM_ADDRESS_ACTIVE',
+                        'is_bool' => true,
+                        'desc' => $this->trans('If enabled, customers can provide a full intervention address for the SAV request. If disabled, they will be asked to enter only their ZIP code and city.', [], 'Modules.Sj4websavform.Admin'),
+                        'values' => [
+                            [
+                                'id' => 'active_sjaddress_on',
+                                'value' => 1,
+                                'label' => $this->trans('Yes', [], 'Modules.Sj4websavform.Admin')
+                            ],
+                            [
+                                'id' => 'active_sjaddress_off',
+                                'value' => 0,
+                                'label' => $this->trans('No', [], 'Modules.Sj4websavform.Admin')
+                            ]
+                        ],
+                    ],
+                    [
+                        'type' => 'switch',
+                        'label' => $this->trans('Display nature of the request', [], 'Modules.Sj4websavform.Admin'),
+                        'name' => 'SJ4WEBSAVFORM_DISPLAY_NATURE',
+                        'is_bool' => true,
+                        'desc'  => $this->trans('If enabled, customers can select the type of request, such as Adjustment, Motor failure, etc.', [], 'Modules.Sj4websavform.Admin'),
+                        'values' => [
+                            [
+                                'id' => 'active_nature_on',
+                                'value' => 1,
+                                'label' => $this->trans('Yes', [], 'Modules.Sj4websavform.Admin')
+                            ],
+                            [
+                                'id' => 'active_nature_off',
+                                'value' => 0,
+                                'label' => $this->trans('No', [], 'Modules.Sj4websavform.Admin')
+                            ]
+                        ],
+                    ],
+                    [
+                        'type' => 'switch',
+                        'label' => $this->trans('Display preferred delay', [], 'Modules.Sj4websavform.Admin'),
+                        'name' => 'SJ4WEBSAVFORM_DISPLAY_PRIORITY',
+                        'is_bool' => true,
+                        'desc'  => $this->trans('If enabled, customers can indicate the urgency of the request: Priority, Standard, etc.', [], 'Modules.Sj4websavform.Admin'),
+                        'values' => [
+                            [
+                                'id' => 'active_priority_on',
+                                'value' => 1,
+                                'label' => $this->trans('Yes', [], 'Modules.Sj4websavform.Admin')
+                            ],
+                            [
+                                'id' => 'active_priority_off',
+                                'value' => 0,
+                                'label' => $this->trans('No', [], 'Modules.Sj4websavform.Admin')
+                            ]
+                        ],
+                    ],
                 ],
                 'submit' => [
                     'title' => $this->trans('Save', [], 'Modules.Sj4websavform.Admin')
@@ -302,50 +369,57 @@ class Sj4websavform extends Module
         $helper->fields_value['SJ4WEBSAVFORM_ACTIVE'] = Configuration::get('SJ4WEBSAVFORM_ACTIVE');
         $helper->fields_value['SJ4WEBSAVFORM_CONTACT_ID'] = Configuration::get('SJ4WEBSAVFORM_CONTACT_ID');
         $helper->fields_value['SJ4WEBSAVFORM_CC_EMAILS'] = Configuration::get('SJ4WEBSAVFORM_CC_EMAILS');
+        $helper->fields_value['SJ4WEBSAVFORM_ADDRESS_ACTIVE'] = Configuration::get('SJ4WEBSAVFORM_ADDRESS_ACTIVE');
+        $helper->fields_value['SJ4WEBSAVFORM_DISPLAY_PRIORITY'] = Configuration::get('SJ4WEBSAVFORM_DISPLAY_PRIORITY');
+        $helper->fields_value['SJ4WEBSAVFORM_DISPLAY_NATURE'] = Configuration::get('SJ4WEBSAVFORM_DISPLAY_NATURE');
 
         return $output . $helper->generateForm([$fields_form]);
     }
 
-
     public static function getProductTypes()
     {
+        $translator = Context::getContext()->getTranslator();
         return [
-            'portes_garage' => 'Portes de Garage',
-            'fenetres' => 'Fenêtres',
-            'portes_fenetres' => 'Portes fenêtres',
-            'volets' => 'Volets',
-            'portes_entree' => 'Portes d\'entrée',
-            'pergolas' => 'Pergolas bioclimatique',
-            'veranda' => 'Véranda - Toiture plate',
-            'carport' => 'Carport',
-            'garde_corps' => 'Garde-Corps',
-            'portails' => 'Portails / Portillons',
-            'stores' => 'Stores à banne',
-            'palines' => 'Palines',
-            'vitrages' => 'Vitrages',
-            'accessoires' => 'Accessoires',
+            'portes_garage'    => $translator->trans('Garage doors', [], 'Modules.Sj4websavform.Shop'),
+            'fenetres'         => $translator->trans('Windows', [], 'Modules.Sj4websavform.Shop'),
+            'portes_fenetres'  => $translator->trans('French windows', [], 'Modules.Sj4websavform.Shop'),
+            'volets'           => $translator->trans('Shutters', [], 'Modules.Sj4websavform.Shop'),
+            'portes_entree'    => $translator->trans('Front doors', [], 'Modules.Sj4websavform.Shop'),
+            'pergolas'         => $translator->trans('Bioclimatic pergolas', [], 'Modules.Sj4websavform.Shop'),
+            'veranda'          => $translator->trans('Veranda - Flat roof', [], 'Modules.Sj4websavform.Shop'),
+            'carport'          => $translator->trans('Carport', [], 'Modules.Sj4websavform.Shop'),
+            'garde_corps'      => $translator->trans('Railings', [], 'Modules.Sj4websavform.Shop'),
+            'portails'         => $translator->trans('Gates / Wickets', [], 'Modules.Sj4websavform.Shop'),
+            'stores'           => $translator->trans('Awning blinds', [], 'Modules.Sj4websavform.Shop'),
+            'palines'          => $translator->trans('Privacy screens', [], 'Modules.Sj4websavform.Shop'),
+            'vitrages'         => $translator->trans('Glazing', [], 'Modules.Sj4websavform.Shop'),
+            'accessoires'      => $translator->trans('Accessories', [], 'Modules.Sj4websavform.Shop'),
         ];
     }
 
     public static function getNatures()
     {
+        $translator = Context::getContext()->getTranslator();
+
         return [
-            'reglage' => 'Réglage',
-            'panne_moteur' => 'Panne moteur',
-            'vitrage_casse' => 'Vitrage cassé',
-            'defaut_etancheite' => 'Défaut d\'étanchéité',
-            'autre' => 'Autre',
+            'reglage'            => $translator->trans('Adjustment', [], 'Modules.Sj4websavform.Shop'),
+            'panne_moteur'       => $translator->trans('Motor failure', [], 'Modules.Sj4websavform.Shop'),
+            'vitrage_casse'      => $translator->trans('Broken glazing', [], 'Modules.Sj4websavform.Shop'),
+            'defaut_etancheite'  => $translator->trans('Sealing defect', [], 'Modules.Sj4websavform.Shop'),
+            'autre'              => $translator->trans('Other', [], 'Modules.Sj4websavform.Shop'),
         ];
     }
 
-    public static function getDelais()
+    public function getDelais()
     {
+        $translator = Context::getContext()->getTranslator();
         return [
-            'prioritaire' => 'Prioritaire',
-            'classique' => 'Classique',
-            'non_prioritaire' => 'Non prioritaire',
+            'prioritaire'      => $translator->trans('Priority', [], 'Modules.Sj4websavform.Shop'),
+            'classique'        => $translator->trans('Standard', [], 'Modules.Sj4websavform.Shop'),
+            'non_prioritaire'  => $translator->trans('Non-priority', [], 'Modules.Sj4websavform.Shop'),
         ];
     }
+
 
     public static function getTemplateVarOrders()
     {

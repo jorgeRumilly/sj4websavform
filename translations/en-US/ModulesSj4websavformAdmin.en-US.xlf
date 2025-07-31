@@ -218,6 +218,37 @@
         <source>Service After Sales Requests</source>
         <target>Service After Sales Requests</target>
       </trans-unit>
+      <trans-unit id="Enable intervention address">
+        <source>Enable intervention address</source>
+        <target>Enable intervention address</target>
+      </trans-unit>
+      <trans-unit id="Enable intervention address">
+        <source>Enable intervention address</source>
+        <target>Enable intervention address</target>
+      </trans-unit>
+      <trans-unit id="If enabled, customers can provide a full intervention address for the SAV request. If disabled, they will be asked to enter only their ZIP code and city.">
+        <source>If enabled, customers can provide a full intervention address for the SAV request. If disabled, they will be asked to enter only their ZIP code and city.</source>
+        <target>If enabled, customers can provide a full intervention address for the SAV request. If disabled, they will be asked to enter only their ZIP code and city.</target>
+      </trans-unit>
+
+      <trans-unit id="Display nature of the request">
+        <source>Display nature of the request</source>
+        <target>Display nature of the request</target>
+      </trans-unit>
+      <trans-unit id="If enabled, customers can select the type of request, such as Adjustment, Motor failure, etc.">
+        <source>If enabled, customers can select the type of request, such as Adjustment, Motor failure, etc.</source>
+        <target>If enabled, customers can select the type of request, such as Adjustment, Motor failure, etc.</target>
+      </trans-unit>
+
+      <trans-unit id="Display preferred delay">
+        <source>Display preferred delay</source>
+        <target>Display preferred delay</target>
+      </trans-unit>
+      <trans-unit id="If enabled, customers can indicate the urgency of the request: Priority, Standard, etc.">
+        <source>If enabled, customers can indicate the urgency of the request: Priority, Standard, etc.</source>
+        <target>If enabled, customers can indicate the urgency of the request: Priority, Standard, etc.</target>
+      </trans-unit>
+
     </body>
   </file>
 </xliff>

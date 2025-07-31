@@ -15,31 +15,45 @@
     <input type="hidden" name="token" value="{$token}">
 
     {* --- Bloc identité client --- *}
-    <div class="form-group">
-        <label for="firstname">{l s='First name' d='Modules.Sj4websavform.Shop'}</label>
-        <input type="text" name="firstname" class="form-control" value="{$form_data.firstname|escape:'htmlall':'UTF-8'}" required>
+    <div class="row">
+        <div class="form-group col-lg-6">
+            <label for="firstname">{l s='First name' d='Modules.Sj4websavform.Shop'}</label>
+            <input type="text" name="firstname" class="form-control" value="{$form_data.firstname|escape:'htmlall':'UTF-8'}" required>
+        </div>
+        <div class="form-group col-lg-6">
+            <label for="lastname">{l s='Last name' d='Modules.Sj4websavform.Shop'}</label>
+            <input type="text" name="lastname" class="form-control" value="{$form_data.lastname|escape:'htmlall':'UTF-8'}" required>
+        </div>
     </div>
-
-    <div class="form-group">
-        <label for="lastname">{l s='Last name' d='Modules.Sj4websavform.Shop'}</label>
-        <input type="text" name="lastname" class="form-control" value="{$form_data.lastname|escape:'htmlall':'UTF-8'}" required>
-    </div>
-
-    <div class="form-group">
-        <label for="email">{l s='Email address' d='Modules.Sj4websavform.Shop'}</label>
-        <input type="email" name="email" class="form-control" value="{$form_data.email|escape:'htmlall':'UTF-8'}" required>
-    </div>
-
-    <div class="form-group">
-        <label for="phone">{l s='Phone number' d='Modules.Sj4websavform.Shop'}</label>
-        <input type="text" name="phone" class="form-control" value="{$form_data.phone|escape:'htmlall':'UTF-8'}">
+    <div class="row">
+        <div class="form-group col-lg-6">
+            <label for="email">{l s='Email address' d='Modules.Sj4websavform.Shop'}</label>
+            <input type="email" name="email" class="form-control" value="{$form_data.email|escape:'htmlall':'UTF-8'}" required>
+        </div>
+        <div class="form-group col-lg-6">
+            <label for="phone">{l s='Phone number' d='Modules.Sj4websavform.Shop'}</label>
+            <input type="text" name="phone" class="form-control" value="{$form_data.phone|escape:'htmlall':'UTF-8'}">
+        </div>
     </div>
 
     {* --- Lieu d'intervention --- *}
+    {if $is_intervention_address}
     <div class="form-group">
         <label for="intervention_address">{l s='Intervention address' d='Modules.Sj4websavform.Shop'}</label>
         <textarea name="intervention_address" class="form-control" required>{$form_data.intervention_address|escape:'htmlall':'UTF-8'}</textarea>
     </div>
+    {else}
+        <div class="row">
+            <div class="form-group col-lg-6">
+                <label for="zip_code">{l s='Zip Code' d='Modules.Sj4websavform.Shop'}</label>
+                <input type="text" name="zip_code" class="form-control" value="{$form_data.zip_code|escape:'htmlall':'UTF-8'}">
+            </div>
+            <div class="form-group col-lg-6">
+                <label for="city">{l s='City' d='Modules.Sj4websavform.Shop'}</label>
+                <input type="text" name="city" class="form-control" value="{$form_data.city|escape:'htmlall':'UTF-8'}">
+            </div>
+        </div>
+    {/if}
 
     {* --- Commande associée --- *}
     {if $is_logged}
@@ -77,36 +91,38 @@
     </div>
 
     {* --- Nature de la demande --- *}
-    <div class="form-group">
-        <label>{l s='Nature of the request' d='Modules.Sj4websavform.Shop'}</label>
-        <div class="radio-inline-group">
-            {foreach from=$natures key=key item=label}
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="nature" value="{$key}" id="nature_{$key}" {if $form_data.nature == $key}checked{/if}>
-                    <label class="form-check-label" for="nature_{$key}">{$label}</label>
-                </div>
-            {/foreach}
+    {if $display_nature}
+        <div class="form-group">
+            <label>{l s='Nature of the request' d='Modules.Sj4websavform.Shop'}</label>
+            <div class="radio-inline-group">
+                {foreach from=$natures key=key item=label}
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="nature" value="{$key}" id="nature_{$key}" {if $form_data.nature == $key}checked{/if}>
+                        <label class="form-check-label" for="nature_{$key}">{$label}</label>
+                    </div>
+                {/foreach}
+            </div>
+            <div id="nature_other_container" class="mt-2" {if $form_data.nature != 'autre'}style="display:none"{/if}>
+                <input type="text" name="nature_other" class="form-control" placeholder="{l s='Please specify' d='Modules.Sj4websavform.Shop'}" value="{$form_data.nature_other|escape:'htmlall':'UTF-8'}">
+            </div>
         </div>
-        <div id="nature_other_container" class="mt-2" {if $form_data.nature != 'autre'}style="display:none"{/if}>
-            <input type="text" name="nature_other" class="form-control" placeholder="{l s='Please specify' d='Modules.Sj4websavform.Shop'}" value="{$form_data.nature_other|escape:'htmlall':'UTF-8'}">
-        </div>
-    </div>
+    {/if}
 
 
     {*-- Urgence de la demande --*}
-    <div class="form-group">
-        <label>{l s='Preferred delay' d='Modules.Sj4websavform.Shop'}</label>
-        <div class="radio-inline-group">
-            {foreach from=$delais key=key item=label}
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="delai" value="{$key}" id="delai_{$key}" {if $form_data.delai == $key}checked{/if}>
-                    <label class="form-check-label" for="delai_{$key}">{$label}</label>
-                </div>
-            {/foreach}
+    {if $display_priority}
+        <div class="form-group">
+            <label>{l s='Preferred delay' d='Modules.Sj4websavform.Shop'}</label>
+            <div class="radio-inline-group">
+                {foreach from=$delais key=key item=label}
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="delai" value="{$key}" id="delai_{$key}" {if $form_data.delai == $key}checked{/if}>
+                        <label class="form-check-label" for="delai_{$key}">{$label}</label>
+                    </div>
+                {/foreach}
+            </div>
         </div>
-    </div>
-
-
+    {/if}
 
     {* --- Objet et message --- *}
     <div class="form-group">

@@ -1,5 +1,7 @@
 <?php
 
+require_once dirname(__FILE__).'/../../classes/Sj4webSavformRequest.php';
+
 class AdminSj4webSavformRequestsController extends ModuleAdminController
 {
     public function __construct()
@@ -7,39 +9,30 @@ class AdminSj4webSavformRequestsController extends ModuleAdminController
         $this->module = Module::getInstanceByName('sj4websavform');
         $this->bootstrap = true;
         $this->table = 'sj4web_savform_request';
+        $this->className = 'Sj4webSavformRequest';
+        $this->identifier = 'id_savform_request';
         $this->lang = false;
-        $this->explicitSelect = true;
-        $this->display = 'list';
+        $this->explicitSelect = false;
+
+        $this->_defaultOrderBy = 'date_add';
+        $this->_defaultOrderWay = 'DESC';
+
+        $this->_default_pagination = 10;
+        $this->_pagination = [10, 20, 50, 100, 300];
 
         parent::__construct();
-    }
 
-    public function initContent()
-    {
-        if (Tools::getIsset('view' . $this->table)) {
-            $this->display = 'view';
-        }
-
-        parent::initContent();
-
-        if ($this->display === 'view') {
-            return;
-        }
-
-        $this->meta_title = $this->trans('Service After Sales Requests', [], 'Modules.Sj4websavform.Admin');
-
-
-        $fields_list = [
+        $this->fields_list = [
             'id_savform_request' => [
                 'title' => $this->trans('ID', [], 'Modules.Sj4websavform.Admin'),
                 'align' => 'center',
-                'class' => 'fixed-width-xs'
+                'class' => 'fixed-width-xs',
             ],
             'date_add' => [
                 'title' => $this->trans('Date', [], 'Modules.Sj4websavform.Admin'),
                 'type' => 'datetime',
                 'align' => 'center',
-                'class' => 'fixed-width-sm'
+                'class' => 'fixed-width-sm',
             ],
             'firstname' => [
                 'title' => $this->trans('Firstname', [], 'Modules.Sj4websavform.Admin'),
@@ -60,41 +53,27 @@ class AdminSj4webSavformRequestsController extends ModuleAdminController
                 'title' => $this->trans('Processed', [], 'Modules.Sj4websavform.Admin'),
                 'type' => 'bool',
                 'align' => 'center',
-                'active' => 'processed', // pas de toggling automatique sans objet
-                'class' => 'fixed-width-xs'
+                'class' => 'fixed-width-xs',
             ],
         ];
 
-//        $this->_select = '';
-//        $this->_join = '';
+        // Actions ligne
+        $this->addRowAction('view');
+        $this->addRowAction('delete');
+        $this->addRowAction('markProcessed');
+    }
 
-//        $this->getList($this->context->language->id, null, null);
+    public function initContent()
+    {
+        $this->meta_title = $this->trans('Service After Sales Requests', [], 'Modules.Sj4websavform.Admin');
 
-        $this->actions = ['view', 'delete', 'markProcessed'];
-        $helper = new HelperList();
-        $helper->module = $this->module;
-        $helper->shopLinkType = '';
-        $helper->simple_header = false;
-        $helper->identifier = 'id_savform_request';
-        $helper->title = $this->trans('Sav requests list', [], 'Modules.Sj4websavform.Admin');
-        $helper->table = $this->table;
-        $helper->token = Tools::getAdminTokenLite('AdminSj4webSavformRequests');
-//        $helper->currentIndex = AdminController::$currentIndex.'&configure='.$this->module->name;
-        $helper->currentIndex = self::$currentIndex;
-        $helper->actions = $this->actions;
-        $helper->show_toolbar = true;
-        $helper->_default_pagination = 10;
-        $helper->tpl_vars['pagination'] = [10, 20, 50, 100, 300];
-        $helper->tpl_vars['show_toolbar'] = true;
-        $helper->tpl_vars['show_pagination'] = true;
-        $helper->tpl_vars['fields_list'] = $fields_list;
-        $this->context->smarty->assign([
-            'content' => $helper->generateList(
-                Db::getInstance()->executeS('SELECT * FROM ' . _DB_PREFIX_ . 'sj4web_savform_request'),
-                $fields_list
-            ),
-        ]);
+        parent::initContent();
+    }
 
+
+    public function renderList()
+    {
+        return parent::renderList();
     }
 
 
@@ -162,11 +141,6 @@ class AdminSj4webSavformRequestsController extends ModuleAdminController
         );
     }
 
-
-    public function renderList()
-    {
-        $this->addRowAction('markProcessed');
-    }
 
     public function displayMarkProcessedLink($token = null, $id)
     {

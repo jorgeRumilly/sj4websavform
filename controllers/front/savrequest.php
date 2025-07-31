@@ -32,6 +32,9 @@ class Sj4websavformSavrequestModuleFrontController extends ModuleFrontController
             'form_action' => $this->context->link->getModuleLink('sj4websavform', 'savrequest'),
             'form_data' => $this->getFormData(),
             'is_logged' => $this->context->customer->isLogged(),
+            'is_intervention_address' => Configuration::get('SJ4WEBSAVFORM_ADDRESS_ACTIVE', true),
+            'display_nature' => Configuration::get('SJ4WEBSAVFORM_DISPLAY_NATURE', true),
+            'display_priority' => Configuration::get('SJ4WEBSAVFORM_DISPLAY_PRIORITY', true),
             'token' => $token,
             'customer_orders' => Sj4websavform::getTemplateVarOrders(),
             'product_types' => Sj4websavform::getProductTypes(),
@@ -49,25 +52,37 @@ class Sj4websavformSavrequestModuleFrontController extends ModuleFrontController
     {
         $page = parent::getTemplateVarPage();
 
-        $page['meta']['title'] = $this->trans(
-            'Support Request',
-            [],
-            'Modules.Sj4websavform.Shop'
-        );
+        // Récupère la Meta configurée pour cette page
+        $meta = Meta::getMetaByPage($this->context->language->id, $this->php_self);
 
-        $page['meta']['description'] = $this->trans(
-            'Submit a support request using this form.',
-            [],
-            'Modules.Sj4websavform.Shop'
-        );
+        if ($meta) {
+            if (!empty($meta['title'])) {
+                $page['meta']['title'] = $meta['title'];
+            }
 
-        $page['meta']['canonical'] = $this->context->link->getModuleLink(
-            'sj4websavform',
-            'savrequest'
-        );
+            if (!empty($meta['description'])) {
+                $page['meta']['description'] = $meta['description'];
+            }
 
+            $page['meta']['canonical'] = $this->context->link->getModuleLink(
+                'sj4websavform',
+                'savrequest'
+            );
+
+            if (!empty($meta['url_rewrite'])) {
+                $page['meta']['canonical'] = $this->context->link->getPageLink($meta['url_rewrite']);
+            }
+        }
+
+        if (empty($page['meta']['title'])) {
+            $page['meta']['title'] = $this->trans('Support Request', [], 'Modules.Sj4websavform.Shop');
+        }
+        if (empty($page['meta']['description'])) {
+            $page['meta']['description'] = $this->trans('Submit a support request using this form.', [], 'Modules.Sj4websavform.Shop');
+        }
         return $page;
     }
+
 
     public function getFormData()
     {
@@ -119,15 +134,17 @@ class Sj4websavformSavrequestModuleFrontController extends ModuleFrontController
                 'lastname' => Tools::getValue('lastname'),
                 'email' => Tools::getValue('email'),
                 'phone' => Tools::getValue('phone'),
-                'intervention_address' => Tools::getValue('intervention_address'),
+                'intervention_address' => Tools::getValue('intervention_address', ''),
+                'zip_code' => Tools::getValue('zip_code', ''),
+                'city' => Tools::getValue('city', ''),
                 'id_order' => Tools::getValue('id_order'),
                 'order_reference' => Tools::getValue('order_reference'),
                 'product_types' => Tools::getValue('product_types'), // array
                 'subject' => Tools::getValue('subject'),
                 'message' => Tools::getValue('message'),
-                'nature' => Tools::getValue('nature'),
-                'nature_other' => Tools::getValue('nature_other'),
-                'delai' => Tools::getValue('delai'),
+                'nature' => Tools::getValue('nature', null),
+                'nature_other' => Tools::getValue('nature_other', null),
+                'delai' => Tools::getValue('delai', null),
             ];
 
             // Sanitize + fallback
@@ -262,7 +279,7 @@ class Sj4websavformSavrequestModuleFrontController extends ModuleFrontController
 
         }
 
-        $idContact = (int) Configuration::get('SJ4WEBSAVFORM_CONTACT_ID');
+        $idContact = (int)Configuration::get('SJ4WEBSAVFORM_CONTACT_ID');
         if (!$idContact) {
             $idContact = 1;
         }
@@ -305,13 +322,15 @@ class Sj4websavformSavrequestModuleFrontController extends ModuleFrontController
             }
         }
         if (empty($mailAlreadySend)) {
+            $info_address = (isset($form['intervention_address']) && !empty($form['intervention_address']))
+                ? $form['intervention_address'] : $form['zip_code'] . ' ' . $form['city'];
             // Construction du mail
             $var_list = [
                 '{firstname}' => $form['firstname'],
                 '{lastname}' => $form['lastname'],
                 '{email}' => $form['email'],
                 '{phone}' => $form['phone'],
-                '{intervention_address}' => $form['intervention_address'],
+                '{intervention_address}' => $info_address,
                 '{order_reference}' => ((isset($order) && $order->reference) ? $order->reference : $form['order_reference']),
                 '{product_types}' => implode(', ', $form['product_types']),
                 '{subject}' => $form['subject'],
@@ -392,6 +411,15 @@ class Sj4websavformSavrequestModuleFrontController extends ModuleFrontController
      */
     public function insertionEnBase(array $form, array $attachments): ?int
     {
+        $id_order = (int)$form['id_order'];
+        $order_ref = $form['order_reference'] ?? '';
+        if($id_order > 0) {
+            $order = new Order($id_order);
+            if(Validate::isLoadedObject($order)) {
+                $order_ref = $order->order_ref;
+            }
+        }
+
         $success = Db::getInstance()->insert('sj4web_savform_request', [
             'id_customer' => (int)$this->context->customer->id,
             'firstname' => pSQL($form['firstname']),
@@ -399,8 +427,10 @@ class Sj4websavformSavrequestModuleFrontController extends ModuleFrontController
             'email' => pSQL($form['email']),
             'phone' => pSQL($form['phone']),
             'intervention_address' => pSQL($form['intervention_address']),
+            'zip_code' => pSQL($form['zip_code']),
+            'city' => pSQL($form['city']),
             'id_order' => (int)$form['id_order'],
-            'order_reference' => pSQL($form['order_reference']),
+            'order_reference' => pSQL($order_ref),
             'product_types' => pSQL(json_encode($form['product_types'])),
             'subject' => pSQL($form['subject']),
             'message' => pSQL($form['message']),
@@ -452,6 +482,7 @@ class Sj4websavformSavrequestModuleFrontController extends ModuleFrontController
             }
         }
 
+        // @todo : vérifier si on c ok pour le zip_code et city
         $inserted = 0;
         foreach ($entries as $row) {
             // Nettoyage et préparation des champs
@@ -461,6 +492,8 @@ class Sj4websavformSavrequestModuleFrontController extends ModuleFrontController
                 'email' => $row['email'] ?? '',
                 'phone' => $row['phone'] ?? '',
                 'intervention_address' => $row['intervention_address'] ?? '',
+                'zip_code' => $row['zip_code'] ?? '',
+                'city' => $row['city'] ?? '',
                 'id_order' => (int)($row['id_order'] ?? 0),
                 'order_reference' => $row['order_reference'] ?? '',
                 'product_types' => json_decode($row['product_types'], true) ?? [],
@@ -487,7 +520,6 @@ class Sj4websavformSavrequestModuleFrontController extends ModuleFrontController
 
         echo $inserted . ' demandes SAV injectées avec succès.';
     }
-
 
 
 }

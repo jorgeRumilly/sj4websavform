@@ -190,6 +190,33 @@
         <source>Service After Sales Requests</source>
         <target>Demandes de service après-vente</target>
       </trans-unit>
+      <trans-unit id="Enable intervention address">
+        <source>Enable intervention address</source>
+        <target>Activer l’adresse d’intervention</target>
+      </trans-unit>
+      <trans-unit id="If enabled, customers can provide a full intervention address for the SAV request. If disabled, they will be asked to enter only their ZIP code and city.">
+        <source>If enabled, customers can provide a full intervention address for the SAV request. If disabled, they will be asked to enter only their ZIP code and city.</source>
+        <target>Si activé, le client pourra saisir une adresse complète d’intervention. Sinon, seuls le code postal et la ville seront demandés.</target>
+      </trans-unit>
+
+      <trans-unit id="Display nature of the request">
+        <source>Display nature of the request</source>
+        <target>Afficher la nature de la demande</target>
+      </trans-unit>
+      <trans-unit id="If enabled, customers can select the type of request, such as Adjustment, Motor failure, etc.">
+        <source>If enabled, customers can select the type of request, such as Adjustment, Motor failure, etc.</source>
+        <target>Si activé, le client pourra préciser la nature de la demande : Réglage, Panne moteur, etc.</target>
+      </trans-unit>
+
+      <trans-unit id="Display preferred delay">
+        <source>Display preferred delay</source>
+        <target>Afficher le délai souhaité</target>
+      </trans-unit>
+      <trans-unit id="If enabled, customers can indicate the urgency of the request: Priority, Standard, etc.">
+        <source>If enabled, customers can indicate the urgency of the request: Priority, Standard, etc.</source>
+        <target>Si activé, le client pourra indiquer l’urgence de la demande : Prioritaire, Classique, etc.</target>
+      </trans-unit>
+
     </body>
   </file>
 </xliff>
